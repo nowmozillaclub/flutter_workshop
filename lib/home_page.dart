@@ -1,3 +1,4 @@
+import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -6,6 +7,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  void changeBrightness() {
+    DynamicTheme.of(context).setBrightness(
+        Theme.of(context).brightness == Brightness.dark
+            ? Brightness.light
+            : Brightness.dark);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,10 +69,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       )),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: Icon(Icons.brightness_5),
         splashColor: Colors.blue,
         onPressed: () {
-          print('FAB pressed');
+          changeBrightness();
         },
       ),
     );
