@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_workshop/home_page.dart';
+import 'package:flutter_workshop/intro_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FirstPage extends StatefulWidget {
@@ -14,7 +15,7 @@ class _FirstPageState extends State<FirstPage> {
 
     if (isFirstLaunch) {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return MyHomePage();
+        return MyIntroPage();
       }));
     } else {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
