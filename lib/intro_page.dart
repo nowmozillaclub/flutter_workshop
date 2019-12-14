@@ -2,8 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_workshop/home_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyIntroPage extends StatefulWidget {
+  final SharedPreferences prefs;
+  MyIntroPage({Key key, @required this.prefs});
   @override
   _MyIntroPageState createState() => _MyIntroPageState();
 }
@@ -132,6 +135,9 @@ class _MyIntroPageState extends State<MyIntroPage> {
                       onPressed: () {
                         if (_fbKey.currentState.saveAndValidate()) {
                           print(_fbKey.currentState.value);
+
+                          widget.prefs.setBool('isFirstLaunch', false);
+
                           Navigator.pushAndRemoveUntil(context,
                               MaterialPageRoute(builder: (context) {
                             return MyHomePage();

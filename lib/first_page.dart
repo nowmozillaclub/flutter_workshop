@@ -14,13 +14,15 @@ class _FirstPageState extends State<FirstPage> {
     bool isFirstLaunch = prefs.getBool('isFirstLaunch') ?? true;
 
     if (isFirstLaunch) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return MyIntroPage();
-      }));
+      Navigator.pushAndRemoveUntil(context,
+          MaterialPageRoute(builder: (context) {
+        return MyIntroPage(prefs: prefs);
+      }), (Route<dynamic> route) => false);
     } else {
-      Navigator.push(context, MaterialPageRoute(builder: (context) {
+      Navigator.pushAndRemoveUntil(context,
+          MaterialPageRoute(builder: (context) {
         return MyHomePage();
-      }));
+      }), (Route<dynamic> route) => false);
     }
   }
 
