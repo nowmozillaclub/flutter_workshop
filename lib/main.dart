@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
           return new MaterialApp(
             title: 'Flutter Workshop',
             theme: theme,
-            home: new FirstPage(context),
+            home: new FirstPage(),
           );
         });
   }
