@@ -21,7 +21,7 @@ class _FirstPageState extends State<FirstPage> {
     } else {
       Navigator.pushAndRemoveUntil(context,
           MaterialPageRoute(builder: (context) {
-        return MyHomePage();
+        return MyHomePage(prefs: prefs);
       }), (Route<dynamic> route) => false);
     }
   }
@@ -34,6 +34,8 @@ class _FirstPageState extends State<FirstPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      color: Colors.white,
+    );
   }
 }

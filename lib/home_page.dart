@@ -1,7 +1,10 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyHomePage extends StatefulWidget {
+  final SharedPreferences prefs;
+  MyHomePage({Key key, this.prefs});
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -16,6 +19,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var name = widget.prefs.getString('name');
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Home Page'),
@@ -47,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 15.0,
               ),
               Text(
-                'Flutter Workshop',
+                'Welcome, $name!',
                 style: TextStyle(
                   fontSize: 24.0,
                   fontWeight: FontWeight.w700,
@@ -57,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 15.0,
               ),
               Text(
-                'by NOW Mozilla Club\n& ACM MPSTME',
+                'To the Flutter Workshop\nby NOW Mozilla Club\n& ACM MPSTME',
                 style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.w500,
