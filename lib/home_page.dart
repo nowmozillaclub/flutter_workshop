@@ -1,5 +1,7 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_workshop/firebase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -69,15 +71,29 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 textAlign: TextAlign.center,
               ),
+              SizedBox(
+                height: 15.0,
+              ),
+              RaisedButton(
+                child: Text('Change theme'),
+                onPressed: () {
+                  changeBrightness();
+                },
+              ),
             ],
           )
         ],
       )),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.brightness_5),
+        child: Icon(Icons.arrow_forward),
         splashColor: Colors.blue,
         onPressed: () {
-          changeBrightness();
+          Navigator.push(
+            context,
+            CupertinoPageRoute(builder: (context) {
+              return MyFirebasePage();
+            }),
+          );
         },
       ),
     );

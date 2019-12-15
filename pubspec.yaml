@@ -9,6 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  cloud_firestore: ^0.13.0
   cupertino_icons: ^0.1.2
   dynamic_theme: ^1.0.1
   flutter_form_builder: ^3.7.2
