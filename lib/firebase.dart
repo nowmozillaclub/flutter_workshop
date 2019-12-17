@@ -13,26 +13,35 @@ class _MyFirebasePageState extends State<MyFirebasePage> {
       appBar: AppBar(
         title: Text('Firebase Demo'),
       ),
-      body: _buildBody(context),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: Firestore.instance.collection('frameworks').snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            // while still loading
+            return CircularProgressIndicator();
+          }
+
+          return _buildList(context, snapshot.data.documents); // after loading
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        splashColor: Colors.blue,
+        onPressed: () {
+          Firestore.instance.collection('people').document('doc1').setData({
+            'name': 'What\'s my name?',
+            'timestamp': DateTime.now(),
+          });
+        },
+      ),
     );
   }
 }
 
-Widget _buildBody(BuildContext context) {
-  return StreamBuilder<QuerySnapshot>(
-    stream: Firestore.instance.collection('frameworks').snapshots(),
-    //collection id
-    builder: (context, snapshot) {
-      if (!snapshot.hasData) return LinearProgressIndicator();
-
-      return _buildList(context, snapshot.data.documents);
-    },
-  );
-}
-
 Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
   return ListView(
-    padding: const EdgeInsets.only(top: 20.0),
+    padding: EdgeInsets.only(top: 20.0),
     children: snapshot.map((data) => _buildListItem(context, data)).toList(),
   );
 }
@@ -42,7 +51,7 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
 
   return Padding(
     key: ValueKey(record.name),
-    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+    padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     child: Container(
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey),
@@ -72,5 +81,5 @@ class Record {
       : this.fromMap(snapshot.data, reference: snapshot.reference);
 
   @override
-  String toString() => "Record<$name:$votes>";
+  String toString() => 'Record<$name:$votes>';
 }
