@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_workshop/firebase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyHomePage extends StatefulWidget {
   final SharedPreferences prefs;
@@ -17,6 +18,15 @@ class _MyHomePageState extends State<MyHomePage> {
         Theme.of(context).brightness == Brightness.dark
             ? Brightness.light
             : Brightness.dark);
+  }
+
+  void launchURL(String url) async {
+    if (await canLaunch(url)) {
+      print('Launching $url...');
+      await launch(url);
+    } else {
+      print('Error launching $url!');
+    }
   }
 
   @override
@@ -35,18 +45,28 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Container(
-                    height: 100.0,
-                    width: 100.0,
-                    child: Image.asset('assets/now.png'),
+                  GestureDetector(
+                    child: Container(
+                      height: 100.0,
+                      width: 100.0,
+                      child: Image.asset('assets/now.png'),
+                    ),
+                    onTap: () {
+                      launchURL('https://nowmozilla.club/');
+                    },
                   ),
                   SizedBox(
                     width: 15.0,
                   ),
-                  Container(
-                    height: 120.0,
-                    width: 120.0,
-                    child: Image.asset('assets/acm.png'),
+                  GestureDetector(
+                    child: Container(
+                      height: 120.0,
+                      width: 120.0,
+                      child: Image.asset('assets/acm.png'),
+                    ),
+                    onTap: () {
+                      launchURL('https://mpstme.acm.org/#slide=1');
+                    },
                   ),
                 ],
               ),
